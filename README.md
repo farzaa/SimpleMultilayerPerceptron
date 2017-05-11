@@ -28,6 +28,10 @@ Side note: This isn't completely right because I like pizza, but pizza isn't swe
 
 Let's get more technical. Back to the code.
 
+```
+prediction = applySigmoid(np.dot(inputs, weights))
+```
+
 At iteration 0, our weights are initialized to some random values (more on this later) and haven't been trained yet which means are prediction will most likely be very wrong. But lets see it for ourselves. 
 
 The first iteration ```iter = 0```.
@@ -75,7 +79,30 @@ This is where the Sigmoid function comes in.
 
 ![Sigmoid](https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Logistic-curve.svg/320px-Logistic-curve.svg.png)
 
-It is a differentiable function (important later) and it will squash any number (from - infinity to infinity) to a number between 0 and 1.
+It is a differentiable (important later) nonlinear function and it will squash any number (from - infinity to infinity) to a number between 0 and 1.
+
+So here the line once again
+```
+prediction = applySigmoid(np.dot(inputs, weights))
+```
+
+And our output at iteration 0 is going to be. Notice how every number has been "squashed" between 0 and 1.
+```
+[[ 0.2689864 ]
+ [ 0.3262757 ]
+ [ 0.23762817]
+ [ 0.36375058]]
+```
+
+In summary, we are using forward propagation using our weights and inputs to predict the right answer and we are usign the activation function to introduce nonlinearity.
+
+
+On to the next line
+```
+error = keys - prediction
+```
+
+Here we are, at the simplest level, we're calculating loss by subtracting the right answers from our predictions and saving that difference. This essentially says "By how much was I off from the right answer?".
  
  
  
