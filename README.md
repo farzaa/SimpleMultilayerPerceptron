@@ -1,4 +1,4 @@
-# SimpleMultilayerPerceptron by Farzain M (call me Farza)
+# Simple Multilayer Perceptron by Farza
 
 Simple example to understand how the most basic neural network is actually working. To run it:
 ```
