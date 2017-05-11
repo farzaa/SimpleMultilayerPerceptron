@@ -124,6 +124,29 @@ You aren't learning from your mistakes. Lets try this, everytime you die, think 
 
 The back propogation method I'm going to use below (and the one I explained above witht the slopes) is called the Delta Rule which is also called The Error Weighted Derivative and this is a VERY simple way to help you understand backpropogation. More complex networks use more complex backpropogation methods, but this is a simple perceptron with a single layer so we can keep it simple to just make sure everything is easy and understandable. 
 
+Back to the code. Here's the line we are on:
+```
+change_in_error = error * applySigmoid(prediction,True)
+```
+
+I pass ```True``` to the applySigmoid function to tell it to do its calculations with the derivative rather than the plain Sigmoid function. Here's the function for reference:
+```
+def applySigmoid(x, giveMeTheDerivative = False):
+	if(giveMeTheDerivative == True):
+		return x * (1 - x)
+	return 1 / (1 + np.exp(-x))
+```
+
+So when we do ```error * applySigmoid(prediction,True)``` we are adjusting our error matrix by a factor equivalent to the slope of our predictions. This way, if we had a small error and a small slope for that prediction, we are going to change our weights slightly. But if we have a big error, our slope will be much larger as well so we are going to change our weights by a larger factor.
+
+Answer to two questions I had that were very important to my understanding of this code:
+
+1. You may be asking yourself, why do we even need this concept of a slope? Why can't we just adjust our weight matrix based on the error? This comes down to that concept of nonlinearity. If we *only* use the error matrix, where ``` error = keys - prediction```, to adjust the matrix than we're just adjusting the weights by some linear fucntion and our neural network is just as good a single layer perceptron.
+
+
+2. It is **very important**  to understand the following concept. You may notice that we did not adjust our weight matrix at all until the very end. We first adjust our error matrix by multiplying by our slopes, and *THAN* we change our weight matrix. But why is this, why not just multiply the SLOPES by the elements in our WEIGHT matrix? Wouldn't this also adjust our weight matrix based on how wrong or right we were? **NOPE**. 
+
+
  
  
 
