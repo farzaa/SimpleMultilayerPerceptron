@@ -66,11 +66,13 @@ Look at this situation below. Imagine the black dots are junk foods I love/hate 
 Try as much as you can and you'll find that there is no solution by simply drawing a line. This means the issue of deciding what foods I like is a NONLINEAR problem.
 
 This output above actually comes from the XOR truth table, and the way we seperate the two classes is via a nonlinear solution.
+
 ![XOR2](http://www.ece.utep.edu/research/webfuzzy/docs/kk-thesis/kk-thesis-html/img43.gif)
 
 Imagine if you had a MASSIVE neural network with many layers and nodes that decided my favorite foods. Now imagine this net didn't utilize a nonlinear activation fucntion like Sigmoid or something else. This means our big, complex neural network is only as good as a single layer perceptron! WTF WHY?? This is because summing up a bunch of linear functions is going to just give us another linear model and we get the same problem as the XOR issue above. We need nonlinearity in the model to avoid this issue of our big, fancy neural net boling down to a single layer perceptron.
  
 This is where the Sigmoid fucntion comes in.
+
 ![Sigmoid](https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Logistic-curve.svg/320px-Logistic-curve.svg.png)
 
 For now, just know that it is diffrentiable fucntion (important later) and it will squash any number between to a number between 0 and 1.
