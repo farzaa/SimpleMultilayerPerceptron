@@ -1,4 +1,4 @@
-# Simple Multilayer Perceptron by Farza
+# Simple Single/Multilayer Perceptron by Farza
 
 Simple example to understand how the most basic neural network is actually working. To run it:
 ```
@@ -106,15 +106,16 @@ Here we are, at the simplest level, we're calculating loss by subtracting the ri
 
 ![SigmoidSlopes](http://iamtrask.github.io/img/sigmoid-deriv-2.png)
 
-Above is the Sigmoid fucntion again, but this time the slopes are highlighted. You'll notice that the slopes near the top and bottom are relatively shallow but the slopes near the center are much steeper. We can calculate these exact slopes by finding the derivative of the Sigmoid fucntion and plugging in a value for x. These slopes essentially tell us how right or wrong we were. 
+Above is the Sigmoid fucntion again, but this time the slopes are highlighted. You'll notice that the slopes near the top and bottom are relatively shallow but the slopes near the center are much steeper. We can calculate these exact slopes by finding the derivative of the Sigmoid fucntion and plugging in a value for x. These slopes essentially tell us how right or wrong we were. Something to keep in mind is that the neural network will never be exactly right, but we can get pretty damn close. 
 
 If we were WRONG, than the slope will be like the slope in the center and we'll change our weights by some factor of this slope. 
 
 If we CLOSE TO BEING CORRECT, than the slope will be shallow and we'll STILL change our weights but it will change by some much smaller factor since our slope is much smaller. 
 
-This makese sense because we want to change our weights by a larger amount if we were wrong and a smaller amount if were close to right. 
+This makese sense because we want to change our weights by a larger amount if we were wrong and a smaller amount if were close to right. This method is known generally as propogation and its the soul of machine learning. 
 
-Something to keep in mind is that the neural network will never be exactly right, but we can get pretty damn close. 
+The back propogation method I'm going to use below is called the Delta Rule which is also called The Error Weighted Derivative and this is a VERY simple way to help you understand backpropogation. More complex networks use more complex backpropogation methods, but this is a simple perceptron with a single layer.
+
  
  
 
