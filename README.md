@@ -28,7 +28,7 @@ We are going to build a simple neural network known as an multi layer perceptron
 Let's look at the train method which is where all the magic happens.
 ```python
 def train(inputs, keys, weights):
-  for iter in xrange(10000):
+  for iter in xrange(20000):
 	  prediction = applySigmoid(np.dot(inputs, weights))
 	  error = keys - prediction
 	  change_in_error = error * applySigmoid(prediction,True)
@@ -215,11 +215,7 @@ f(output layer two) = f(output layer one) * WeightsLayerOne
 
 The input to our second layer is a function of the previous layer. In a deep neural network, this behavior is what allows us to capture much more profound and complex attributes like birds in an image or number of faces in a video.  
 
-Okay, so how do we fix it?
-
- 
- 
- 
+Okay, so how do we fix it? Like I said above, add another hidden layer. 
 
 
 
