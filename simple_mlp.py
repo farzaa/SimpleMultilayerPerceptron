@@ -1,27 +1,42 @@
 import numpy as np
 
-def nonlin(x,deriv=False):
-	if(deriv==True):
-		return x*(1-x)
-	return 1/(1+np.exp(-x))
 
-np.random.seed(1)
+def applySigmoid(x, giveMeTheDerivative = False):
+	if(giveMeTheDerivative == True):
+		return x * (1 - x)
+	return 1 / (1 + np.exp(-x))
 
-X =np.array([[0,0,1],
-			[0,1,1],
-			[1,0,1],
-			[1,1,1]])
+def print_data(iter, inputs, keys, weights, prediction):
+	print "This is iteration # ", iter
+	print "Your original input data was... \n", inputs
+	print "Your orignal keys were... \n", keys
+	print "Your weights at this specific iteration are... \n", weights
+	print "Our prediction at this iteration was... \n", prediction
+	print "--------------------------------------------------\n"
 
-y = np.array([[0,0,1,1]]).T
+def train(inputs, keys, weights):
+	for iter in xrange(20000):
+		prediction = applySigmoid(np.dot(inputs, weights))
+		error = keys - prediction
+		change_in_error = error * applySigmoid(prediction,True)
+		weights += np.dot(inputs.T ,change_in_error)
+		if(iter == 0 or iter == 5000 or iter == 9999):
+			print_data(iter, inputs, keys, weights, prediction)
 
-syn0 = 2*np.random.random((3,1)) - 1
+	print "Output After Training:"
+	print prediction
 
-for iter in xrange(10000):
-	l0 = X
-	l1 = nonlin(np.dot(l0,syn0))
-	l1_error = y - l1
-	l1_delta = l1_error * nonlin(l1,True)
-	syn0 += np.dot(l0.T,l1_delta)
+def main():
+	np.random.seed(1)
+	inputs = np.array(	[[0,0,1],
+						[1,1,1],
+						[1,0,1],
+						[0,1,1]])
 
-print "Output After Training:"
-print l1
+	keys = np.array([[0,1,1,0]]).T
+	weights = 2*np.random.random((3,1)) - 1
+	train(inputs, keys, weights)
+
+if __name__ == "__main__":
+	main()
+
