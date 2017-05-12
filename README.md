@@ -209,9 +209,10 @@ Two 0s leads to a 0. Okay cool. one 1 and one 0 leads to a 1. Okay cool. One 0 a
 What does this mean? Our input isn't simply one to one (linear). The *relationship* between our inputs leads to our output. This is a nonlinear problem and our current neural network is unable to solve it because our MLP only has one hidden layer. It needs another hidden layer to better understand the relationship between the inputs and to better understand how the output is achieved. 
 
 Still don't get it? Lets think about it mathematically for a second.
-
+```
 f(output layer one) = InputsLayerOne * WeightsLayerOne
 f(output layer two) = f(output layer one) * WeightsLayerOne
+```
 
 The input to our second layer is a function of the previous layer. In a deep neural network, this behavior is what allows us to capture much more profound and complex attributes like birds in an image or number of faces in a video.  
 
