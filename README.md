@@ -86,7 +86,7 @@ This is where the Sigmoid function comes in.
 It is a differentiable (important later) nonlinear function and it will squash any number (from - infinity to infinity) to a number between 0 and 1.
 
 So here the line once again
-```
+```python
 prediction = applySigmoid(np.dot(inputs, weights))
 ```
 
@@ -102,7 +102,7 @@ In summary, we are using forward propagation using our weights and inputs to pre
 
 
 On to the next line
-```
+```python
 error = keys - prediction
 ```
 
@@ -129,12 +129,12 @@ You aren't learning from your mistakes. Lets try this, everytime you die, think 
 The back propogation method I'm going to use below (and the one I explained above witht the slopes) is called the Delta Rule which is also called The Error Weighted Derivative and this is a VERY simple way to help you understand backpropogation. More complex networks use more complex backpropogation methods, but this is a simple perceptron with a single layer so we can keep it simple to just make sure everything is easy and understandable. 
 
 Back to the code. Here's the line we are on:
-```
+```python
 change_in_error = error * applySigmoid(prediction,True)
 ```
 
 I pass ```True``` to the applySigmoid function to tell it to do its calculations with the derivative rather than the plain Sigmoid function. Here's the function for reference:
-```
+```python
 def applySigmoid(x, giveMeTheDerivative = False):
 	if(giveMeTheDerivative == True):
 		return x * (1 - x)
@@ -144,7 +144,7 @@ def applySigmoid(x, giveMeTheDerivative = False):
 So when we do ```error * applySigmoid(prediction,True)``` we are adjusting our error matrix by a factor equivalent to the slope of our predictions. This way, if we had a small error and a small slope for that prediction, we are going to change our weights slightly. But if we have a big error, our slope will be much larger as well so we are going to change our weights by a larger factor.
 
 And finally, the last line:
-```
+```python
 weights += np.dot(inputs.T ,change_in_error)
 ```
 Why do we do *dot* the *transpose* of the inputs with the change in error? 
