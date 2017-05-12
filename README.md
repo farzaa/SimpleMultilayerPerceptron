@@ -1,10 +1,14 @@
-# Simple Single/Multilayer Perceptron by Farza
+# Simple Multilayer Perceptron Example by Farza
 
 Simple example to understand how the most basic neural network is actually working. To run it:
 ```
 pip install numpy
 python simple.py
 ```
+
+As for prior knowledge, know how Python works and the basics of calculus/matrix algebra.
+
+I don't go over how numpy works in this tutorial but just imagine it as a super cool/easy library to work with matrixes and many other things. Every numpy method call will have an ```np``` come before it. If you don't get what it's doing, refer to this easy doc: http://cs231n.github.io/python-numpy-tutorial/
 
 Lets look at the train method which is where all the magic happens.
 ```python
@@ -138,6 +142,13 @@ def applySigmoid(x, giveMeTheDerivative = False):
 ```
 
 So when we do ```error * applySigmoid(prediction,True)``` we are adjusting our error matrix by a factor equivalent to the slope of our predictions. This way, if we had a small error and a small slope for that prediction, we are going to change our weights slightly. But if we have a big error, our slope will be much larger as well so we are going to change our weights by a larger factor.
+
+And finally, the last line:
+```
+weights += np.dot(inputs.T ,change_in_error)
+```
+Why do we do *dot* the *transpose* of the inputs with the change in error? 
+
 
 Answer to two questions I had that were very important to my understanding of this code:
 
