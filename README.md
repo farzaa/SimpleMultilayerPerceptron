@@ -2,6 +2,8 @@
 
 Simple example to understand how the most basic neural network is actually working. To run it:
 ```
+git clone https://github.com/farzaa/SimpleMultilayerPerceptron.git
+cd SimpleMultilayerPerceptron
 pip install numpy
 python simple.py
 ```
@@ -13,17 +15,17 @@ I don't go over how numpy works in this tutorial but just imagine it as a super 
 Here is our input/ output:
 
 | Input  | Output |
-| -------------| ------------- |
+| -----| -- |
 |  0   0   1 | 0 |
 |  1   1   1 | 1 |
 |  1   0   1 | 1 |
 |  0   1   1 | 0 |
 
-Really understand this input/output, whats going on? Notice how there is a unique output for every single input. Think of this as a *linear* relationship where the fucntion representing our input/output is linear.
+Really understand this input/output, whats going on? Notice how there is a unique output for every single input. Think of this as a *linear* relationship where the function representing our input/output is linear.
 
-We are going to build a simple neural network known as an multi layer perceptron to learn how to solve this function. This is a really good exercise that helped me a ton to understand lots of terminology and core concepts realated to neural networks and deep learning. 
+We are going to build a simple neural network known as an multi layer perceptron to learn how to solve this function. This is a really good exercise that helped me a ton to understand lots of terminology and core concepts related to neural networks and deep learning. 
 
-Lets look at the train method which is where all the magic happens.
+Let's look at the train method which is where all the magic happens.
 ```python
 def train(inputs, keys, weights):
   for iter in xrange(10000):
@@ -119,19 +121,19 @@ On to the next line
 error = keys - prediction
 ```
 
-Here we are, at the simplest level, we're calculating loss by subtracting the right answers from our predictions and saving that difference. This essentially says "By how much was I off from the right answer?". We use this to adjust our weights later. Lets talk about this a little more before getting to the next part.
+Here we are, at the simplest level, we're calculating loss by subtracting the right answers from our predictions and saving that difference. This essentially says "By how much was I off from the right answer?". We use this to adjust our weights later. Let's talk about this a little more before getting to the next part.
 
 ![SigmoidSlopes](http://iamtrask.github.io/img/sigmoid-deriv-2.png)
 
-Above is the Sigmoid fucntion again, but this time the slopes are highlighted. You'll notice that the slopes near the top and bottom are relatively shallow but the slopes near the center are much steeper. We can calculate these exact slopes by finding the derivative of the Sigmoid fucntion and plugging in a value for x. These slopes essentially tell us how right or wrong we were. Something to keep in mind is that the neural network will never be exactly right, but we can get pretty damn close. 
+Above is the Sigmoid function again, but this time the slopes are highlighted. You'll notice that the slopes near the top and bottom are relatively shallow but the slopes near the center are much steeper. We can calculate these exact slopes by finding the derivative of the Sigmoid function and plugging in a value for x. These slopes essentially tell us how right or wrong we were. Something to keep in mind is that the neural network will never be exactly right, but we can get pretty damn close. 
 
 If we were *WRONG*, than the slope will be like the slope in the center and we'll change our weights by some factor of this slope. 
 
 If we *CLOSE TO BEING CORRECT*, than the slope will be shallow and we'll STILL change our weights but it will change by some much smaller factor since our slope is much smaller. 
 
-This makese sense because we want to change our weights by a larger amount if we were wrong and a smaller amount if were close to right. This method is known generally as **back propogation** and its the soul of machine learning. 
+This makes sense because we want to change our weights by a larger amount if we were wrong and a smaller amount if we're close to right. This method is known generally as **back propagation** and it's the soul of machine learning. 
 
-Lets think of backpropogation a different way just to make sure I properlly sell this idea to you. Imagine your playing a video game like, League of Legends or Call of Duty, but you are absolutely terrible at it and don't understand why you aren't improving. Your keep spwanning and running straight to the enemy base and getting killed like our friend in the GIF below. Whats the issue here? 
+Let's think of backpropagation a different way just to make sure I properly sell this idea to you. Imagine you're playing a video game like, League of Legends or Call of Duty, but you are absolutely terrible at it and don't understand why you aren't improving. Your keep spawning and running straight to the enemy base and getting killed like our friend in the GIF below. What's the issue here? 
 
 ![CODDeath](http://www.respawnless.com/wp-content/uploads/2013/11/ghosts-strafing-01.gif)
 
@@ -139,7 +141,7 @@ You aren't learning from your mistakes. Lets try this, everytime you die, think 
 
 ![CODQS](http://cloud-3.steamusercontent.com/ugc/613920459680687334/B677F0F07543F2D61D13D8B9E870267C5FEDDF55/)
 
-The back propogation method I'm going to use below (and the one I explained above witht the slopes) is called the Delta Rule which is also called The Error Weighted Derivative and this is a VERY simple way to help you understand backpropogation. More complex networks use more complex backpropogation methods, but this is a simple perceptron with a single layer so we can keep it simple to just make sure everything is easy and understandable. 
+The back propagation method I'm going to use below (and the one I explained above with the slopes) is called the Delta Rule which is also called The Error Weighted Derivative and this is a VERY simple way to help you understand backpropagation. More complex networks use more complex backpropagation methods, but this is a simple perceptron with a single layer so we can keep it simple to just make sure everything is easy and understandable. 
 
 Back to the code. Here's the line we are on:
 ```python
@@ -160,23 +162,64 @@ And finally, the last line:
 ```python
 weights += np.dot(inputs.T ,change_in_error)
 ```
-Why do we do *dot* the *transpose* of the inputs with the change in error? The transpose is done so that the math works out. The actual dot happens 
+Why do we do *dot* the *transpose* of the inputs with the change in error? The transpose is done so that the math works out. The actual dot happens so that we adjust our weights with respect to our inputs.
 
 
 Answer to two questions I had that were very important to my understanding of this code:
 
-1. You may be asking yourself, why do we even need this concept of a slope? Why can't we just adjust our weight matrix based on the error? This comes down to that concept of nonlinearity. If we *only* use the error matrix, where ``` error = keys - prediction```, to adjust the matrix than we're just adjusting the weights by some linear fucntion and our neural network is just as good a single layer perceptron. 
+1. You may be asking yourself, why do we even need this concept of a slope? Why can't we just adjust our weight matrix based on the error? This comes down to that concept of nonlinearity. If we *only* use the error matrix, where ``` error = keys - prediction```, to adjust the matrix than we're just adjusting the weights by some linear function and our neural network is just as good a single layer perceptron. 
 
-2. Why can't we just adjust our weight matrix based on the slopes? It is **very important**  to understand this concept. You may notice that we did not adjust our weight matrix at all until the very end. We first adjust our error matrix by multiplying by our slopes, and *THAN* we change our weight matrix. But why is this, why not just multiply the SLOPES by the elements in our WEIGHT matrix? Wouldn't this also adjust our weight matrix based on how wrong or right we were? **NOPE**. All our slope is telling us is how confident the predcition was. We need to adjust our error *BASED* on how confident we were. You need to know where you were wrong or right and adjust the weights accoridngly based on this.
+2. Why can't we just adjust our weight matrix based on the slopes? It is **very important**  to understand this concept. You may notice that we did not adjust our weight matrix at all until the very end. We first adjust our error matrix by multiplying by our slopes, and *THAN* we change our weight matrix. But why is this, why not just multiply the SLOPES by the elements in our WEIGHT matrix? Wouldn't this also adjust our weight matrix based on how wrong or right we were? **NOPE**. All our slope is telling us is how confident the prediction was. We need to adjust our error *BASED* on how confident we were. You need to know where you were wrong or right and adjust the weights accordingly based on this.
 
-3. I mentioned above that having a big neural network with a *nonlinear* activation fucntion is just as good as a neural network that is one layer deep. Recall, we used a nonlinear activation fucntion here. Does that mean this specific neural network in nonlinear? **NOPE**. This neural network has only a single layer right now, so it doesn't matter that we have this fancy activation fucntion because the network itself can only understand one to one relationships.
+3. I mentioned above that having a big neural network with a *nonlinear* activation function is just as good as a neural network that is one layer deep. Recall, we used a nonlinear activation function here. Does that mean this specific neural network in nonlinear? **NOPE**. This neural network has only a single layer right now, so it doesn't matter that we have this fancy activation function because the network itself can only understand one to one relationships.
 
-Point #3 brings me to my next example. 
+Point #3 brings me to my next example and probably the **most important** of this guide when it comes to deep learning. Let's look at the input I gave you again.
+
+| Input  | Output |
+| -----| -- |
+|  0   0   1 | 0 |
+|  1   1   1 | 1 |
+|  1   0   1 | 1 |
+|  0   1   1 | 0 |
+
+Remember, how every input/output has a linear relationship in this specfic table? Lets change our input/output to look like the XOR truth table I mentioned above not to long ago.
+
+| Input  | Output |
+| -----| -- |
+|  0   0   1 | 0 |
+|  1   0   1 | 1 |
+|  0   1   1 | 1 |
+|  1   1   1 | 0 |
+
+Lets run this input/output through our ```simple_mlp.py``` program. Just change the values of ```input``` and ```keys```. Lets run our network with this new input, train it, and see if it gets the right prediction.
+
+Here is the prediction after 10 K iterations.
+
+```
+[[ 0.5]
+ [ 0.5]
+ [ 0.5]
+ [ 0.5]]
+ ```
+ 
+RATS! Our neural network is broken! Well, kinda. It's just not fit for the task at hand. Lets explore why we get this very incorrect output. Take a look at the input again. 
+ 
+Two 0s leads to a 0. Okay cool. one 1 and one 0 leads to a 1. Okay cool. One 0 and one 1 leads to a 1. Wait, hmmmm. The same inputs in a different order leads to the same result? Yes. XOR only evaluates to true if *either* the inputs are true.
+
+What does this mean? Our input isn't simply one to one (linear). The *relationship* between our inputs leads to our output. This is a nonlinear problem and our current neural network is unable to solve it because our MLP only has one hidden layer. It needs another hidden layer to better understand the relationship between the inputs and to better understand how the output is achieved. 
+
+Still don't get it? Lets think about it mathematically for a second.
+
+f(output layer one) = InputsLayerOne * WeightsLayerOne
+f(output layer two) = f(output layer one) * WeightsLayerOne
+
+The input to our second layer is a function of the previous layer. In a deep neural network, this behavior is what allows us to capture much more profound and complex attributes like birds in an image or number of faces in a video.  
+
+Okay, so how do we fix it?
 
  
  
-
-
  
+
 
 
