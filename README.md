@@ -10,6 +10,19 @@ As for prior knowledge, know how Python works and the basics of calculus/matrix 
 
 I don't go over how numpy works in this tutorial but just imagine it as a super cool/easy library to work with matrixes and many other things. Every numpy method call will have an ```np``` come before it. If you don't get what it's doing, refer to this easy doc: http://cs231n.github.io/python-numpy-tutorial/
 
+Here is our input/ output:
+
+| Input  | Output |
+| -------------| ------------- |
+|  0   0   1 | 0 |
+|  1   1   1 | 1 |
+|  1   0   1 | 1 |
+|  0   1   1 | 0 |
+
+Really understand this input/output, whats going on? Notice how there is a unique output for every single input. Think of this as a *linear* relationship where the fucntion representing our input/output is linear.
+
+We are going to build a simple neural network known as an multi layer perceptron to learn how to solve this function. This is a really good exercise that helped me a ton to understand lots of terminology and core concepts realated to neural networks and deep learning. 
+
 Lets look at the train method which is where all the magic happens.
 ```python
 def train(inputs, keys, weights):
@@ -98,7 +111,7 @@ And our output at iteration 0 is going to be. Notice how every number has been "
  [ 0.36375058]]
 ```
 
-In summary, we are using forward propagation using our weights and inputs to predict the right answer and we are usign the activation function to introduce nonlinearity.
+In summary, we are using forward propagation using our weights and inputs to predict the right answer and we are using the activation function to introduce nonlinearity.
 
 
 On to the next line
@@ -147,16 +160,18 @@ And finally, the last line:
 ```python
 weights += np.dot(inputs.T ,change_in_error)
 ```
-Why do we do *dot* the *transpose* of the inputs with the change in error? 
+Why do we do *dot* the *transpose* of the inputs with the change in error? The transpose is done so that the math works out. The actual dot happens 
 
 
 Answer to two questions I had that were very important to my understanding of this code:
 
-1. You may be asking yourself, why do we even need this concept of a slope? Why can't we just adjust our weight matrix based on the error? This comes down to that concept of nonlinearity. If we *only* use the error matrix, where ``` error = keys - prediction```, to adjust the matrix than we're just adjusting the weights by some linear fucntion and our neural network is just as good a single layer perceptron.
+1. You may be asking yourself, why do we even need this concept of a slope? Why can't we just adjust our weight matrix based on the error? This comes down to that concept of nonlinearity. If we *only* use the error matrix, where ``` error = keys - prediction```, to adjust the matrix than we're just adjusting the weights by some linear fucntion and our neural network is just as good a single layer perceptron. 
 
+2. Why can't we just adjust our weight matrix based on the slopes? It is **very important**  to understand this concept. You may notice that we did not adjust our weight matrix at all until the very end. We first adjust our error matrix by multiplying by our slopes, and *THAN* we change our weight matrix. But why is this, why not just multiply the SLOPES by the elements in our WEIGHT matrix? Wouldn't this also adjust our weight matrix based on how wrong or right we were? **NOPE**. All our slope is telling us is how confident the predcition was. We need to adjust our error *BASED* on how confident we were. You need to know where you were wrong or right and adjust the weights accoridngly based on this.
 
-2. It is **very important**  to understand the following concept. You may notice that we did not adjust our weight matrix at all until the very end. We first adjust our error matrix by multiplying by our slopes, and *THAN* we change our weight matrix. But why is this, why not just multiply the SLOPES by the elements in our WEIGHT matrix? Wouldn't this also adjust our weight matrix based on how wrong or right we were? **NOPE**. 
+3. I mentioned above that having a big neural network with a *nonlinear* activation fucntion is just as good as a neural network that is one layer deep. Recall, we used a nonlinear activation fucntion here. Does that mean this specific neural network in nonlinear? **NOPE**. This neural network has only a single layer right now, so it doesn't matter that we have this fancy activation fucntion because the network itself can only understand one to one relationships.
 
+Point #3 brings me to my next example. 
 
  
  
