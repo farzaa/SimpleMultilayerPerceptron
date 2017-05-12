@@ -215,7 +215,7 @@ f(output layer two) = f(output layer one) * WeightsLayerOne
 
 The input to our second layer is a function of the previous layer. In a deep neural network, this behavior is what allows us to capture much more profound and complex attributes like birds in an image or number of faces in a video.  
 
-Okay, so how do we fix it? Like I said above, add another hidden layer. 
+Okay, so how do we fix it? Like I said above, add another hidden layer. You can see how this is done in ```fancy_mlp.py```. As long as you understand the simpler example, the mor ecomplex example shouldn't be an issue. 
 
 
 
