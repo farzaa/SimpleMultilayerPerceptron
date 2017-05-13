@@ -211,7 +211,7 @@ What does this mean? Our input isn't simply one to one (linear). The *relationsh
 Still don't get it? Lets think about it mathematically for a second.
 ```
 f(output layer one) = InputsLayerOne * WeightsLayerOne
-f(output layer two) = f(output layer one) * WeightsLayerOne
+f(output layer two) = f(output layer one) * WeightsLayerTwo
 ```
 
 The input to our second layer is a function of the previous layer. In a deep neural network, this behavior is what allows us to capture much more profound and complex attributes like birds in an image or number of faces in a video.  
