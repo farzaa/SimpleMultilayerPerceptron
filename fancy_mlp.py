@@ -6,11 +6,12 @@ def applySigmoid(x, giveMeTheDerivative = False):
 		return x * (1 - x)
 	return 1 / (1 + np.exp(-x))
 
-def print_data(iter, inputs, keys, weights, prediction):
+def print_data(iter, inputs, keys, layer_one_weights, layer_two_weights, prediction):
 	print "This is iteration # ", iter
 	print "Your original input data was... \n", inputs
 	print "Your orignal keys were... \n", keys
-	print "Your weights at this specific iteration are... \n", weights
+	print "Layer one weights at this specific iteration are... \n", layer_one_weights
+	print "Layer two weights at this specific iteration are... \n", layer_two_weights
 	print "Our prediction at this iteration was... \n", prediction
 	print "--------------------------------------------------\n"
 
@@ -36,17 +37,17 @@ def train(inputs, keys, layer_one_weights, layer_two_weights):
 		layer_one_error = np.dot(layer_two_change_in_error, layer_two_weights.T)
 
 		# Just like in simple_mlp.py
-		layer_one_change_in_error = layer_one_error * applySigmoid(layer_one_error, True)
+        	layer_one_change_in_error = layer_one_error * applySigmoid(layer_one_prediction, True)
 
 		# adjust your weights accoridngly.
-		layer_one_weights +=  np.dot(layer_one_prediction.T, layer_one_change_in_error)
-		layer_two_weights +=  np.dot(layer_two_prediction.T, layer_two_change_in_error)
+		layer_one_weights +=  np.dot(inputs.T, layer_one_change_in_error)
+		layer_two_weights +=  np.dot(layer_one_prediction.T, layer_two_change_in_error)
 
 		if(iter == 0 or iter == 5000 or iter == 9999):
-			print_data(iter, inputs, keys, weights, prediction)
+			print_data(iter, inputs, keys, layer_one_weights, layer_two_weights, layer_two_prediction)
 
 	print "Output After Training:"
-	print prediction
+	print layer_two_prediction
 
 def main():
 	np.random.seed(1)
