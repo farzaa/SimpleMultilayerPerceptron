@@ -5,9 +5,10 @@ Simple example to understand how the most basic neural network is actually worki
 git clone https://github.com/farzaa/SimpleMultilayerPerceptron.git
 cd SimpleMultilayerPerceptron
 pip install numpy
-python simple.py
+python simple_mlp.py
 ```
 
+Make sure you have Python 2 installed, since this does not run in Python 3.
 As for prior knowledge, know how Python works and the basics of calculus/matrix algebra.
 
 I don't go over how numpy works in this tutorial but just imagine it as a super cool/easy library to work with matrixes and many other things. Every numpy method call will have an ```np``` come before it. If you don't get what it's doing, refer to this easy doc: http://cs231n.github.io/python-numpy-tutorial/
@@ -56,18 +57,18 @@ At iteration 0, our weights are initialized to some random values (more on this 
 The first iteration ```iter = 0```.
 Our inputs are dotted with the weights, remember these are initially random! A 4x3 matrix dotted with a 3x1 matrix is proper input and will give us a 4x1 matrix which is exactly right since the size of keys is 4x1 as well.
 ```
-[[0 0 1]            [[-0.16595599]
- [1 1 1]    dot      [ 0.44064899] 
- [1 0 1]             [-0.99977125]]
+[[0 0 1]            [[ 0.18599833]
+ [1 1 1]    dot      [ 0.51668113] 
+ [1 0 1]             [-0.80185633]]
  [0 1 1]]
  ```
- 
+ Keep in mind that the values you see here will be different from the ones you get yourself, since our random weights are initialized separately. Your results won't be the same, but they will be similar.
  This 4x1 matrix result is our prediction, and we get:
  ```
-[[-0.99977125]
- [-0.72507825]
- [-1.16572724]
- [-0.55912226]]
+[[0.2689864]
+ [0.3262757]
+ [0.23762817]
+ [0.36375058]]
  ```
  
  Remember our keys are:
@@ -107,10 +108,10 @@ prediction = applySigmoid(np.dot(inputs, weights))
 
 And our output at iteration 0 is going to be. Notice how every number has been "squashed" between 0 and 1.
 ```
-[[ 0.2689864 ]
- [ 0.3262757 ]
- [ 0.23762817]
- [ 0.36375058]]
+[[ 0.56684405 ]
+ [ 0.58085292 ]
+ [ 0.559129067]
+ [ 0.589948040]]
 ```
 
 In summary, we are using forward propagation using our weights and inputs to predict the right answer and we are using the activation function to introduce nonlinearity.
@@ -152,7 +153,7 @@ I pass ```True``` to the applySigmoid function to tell it to do its calculations
 ```python
 def applySigmoid(x, giveMeTheDerivative = False):
 	if(giveMeTheDerivative == True):
-		return x * (1 - x)
+		return applySigmoid(x) * (1 - applySigmoid(x))
 	return 1 / (1 + np.exp(-x))
 ```
 

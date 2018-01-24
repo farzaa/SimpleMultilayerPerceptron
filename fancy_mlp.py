@@ -3,7 +3,7 @@ import numpy as np
 
 def applySigmoid(x, giveMeTheDerivative = False):
 	if(giveMeTheDerivative == True):
-		return x * (1 - x)
+		return applySigmoid(x) * (1 - applySigmoid(x))
 	return 1 / (1 + np.exp(-x))
 
 def print_data(iter, inputs, keys, weights, prediction):
