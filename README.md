@@ -152,7 +152,7 @@ I pass ```True``` to the applySigmoid function to tell it to do its calculations
 ```python
 def applySigmoid(x, giveMeTheDerivative = False):
 	if(giveMeTheDerivative == True):
-		return x * (1 - x)
+		return applySigmoid(x) * (1 - applySigmoid(x))
 	return 1 / (1 + np.exp(-x))
 ```
 
