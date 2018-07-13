@@ -8,8 +8,7 @@ pip install numpy
 python simple_mlp.py
 ```
 
-Make sure you have Python 2 installed, since this does not run in Python 3.
-As for prior knowledge, know how Python works and the basics of calculus/matrix algebra.
+Basic Python and calculus/matrix algebra knowledge might be needed to fully understand this tutorial.
 
 I don't go over how numpy works in this tutorial but just imagine it as a super cool/easy library to work with matrixes and many other things. Every numpy method call will have an ```np``` come before it. If you don't get what it's doing, refer to this easy doc: http://cs231n.github.io/python-numpy-tutorial/
 
