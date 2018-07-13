@@ -19,7 +19,7 @@ def train(inputs, keys, weights):
 		prediction = applySigmoid(np.dot(inputs, weights))
 		error = keys - prediction
 		change_in_error = error * applySigmoid(prediction,True)
-		weights += np.dot(inputs.T ,change_in_error)
+		weights += np.dot(inputs.T, change_in_error)
 		if(iter == 0 or iter == 5000 or iter == 9999):
 			print_data(iter, inputs, keys, weights, prediction)
 
@@ -32,7 +32,7 @@ def main():
 	    		   [0,1,1],
 	    		   [1,1,1]])
 	keys = np.array([[0,1,0,1]]).T
-	weights = 2*np.random.random((3,1)) - 1
+	weights = 2 * np.random.random((3,1)) - 1
 	train(inputs, keys, weights)
 
 if __name__ == "__main__":
