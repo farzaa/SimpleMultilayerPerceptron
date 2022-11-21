@@ -1,18 +1,5 @@
 # Simple Multilayer Perceptron Example by Farza
 
-Simple example to understand how the most basic neural network is actually working. To run it:
-```
-git clone https://github.com/farzaa/SimpleMultilayerPerceptron.git
-cd SimpleMultilayerPerceptron
-pip install numpy
-python simple_mlp.py
-```
-
-Make sure you have Python 2 installed, since this does not run in Python 3.
-As for prior knowledge, know how Python works and the basics of calculus/matrix algebra.
-
-I don't go over how numpy works in this tutorial but just imagine it as a super cool/easy library to work with matrixes and many other things. Every numpy method call will have an ```np``` come before it. If you don't get what it's doing, refer to this easy doc: http://cs231n.github.io/python-numpy-tutorial/
-
 Here is our input/ output:
 
 | Input  | Output |
